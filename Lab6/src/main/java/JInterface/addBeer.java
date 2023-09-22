@@ -1,16 +1,15 @@
 package JInterface;
 
 import enums.BeerEnum;
-import enums.DrinksEnums;
+import models.Position;
 import products.Beer;
-import products.Drink;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class addBeer extends JDialog {
+public class AddBeer extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -20,7 +19,7 @@ public class addBeer extends JDialog {
     private JTextField quantityTextField;
     private JComboBox containerCombo;
 
-    public addBeer(newOrder creationOrder) {
+    public AddBeer(NewOrder creationOrder) {
 
         pack();
         setSize(400, 200);
@@ -46,15 +45,16 @@ public class addBeer extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK(newOrder creationOrder) {
+    private void onOK(NewOrder creationOrder) {
         Beer beer = new Beer();
         beer.setBrand(BeerEnum.brand.valueOf((String) brandCombo.getSelectedItem()));
         beer.setContainer(BeerEnum.container.valueOf((String) containerCombo.getSelectedItem()));
         beer.setSort(BeerEnum.sort.valueOf((String) sortCombo.getSelectedItem()));
         beer.setVolume(BeerEnum.volume.valueOf((String) volumeCombo.getSelectedItem()));
-        if (creationOrder.createdOrder.getBeers().getOrDefault(beer, 0)!=0){
-            creationOrder.createdOrder.getBeers().put(beer, Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getBeers().get(beer));
-        } else creationOrder.createdOrder.getBeers().put(beer, Integer.valueOf(quantityTextField.getText()));
+        if (creationOrder.createdOrder.getBeers().getOrDefault(beer, new Position(0, false)).getQuantity()!=0){
+            creationOrder.createdOrder.getBeers().put(beer, new Position
+                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getBeers().get(beer).getQuantity(), false));
+        } else creationOrder.createdOrder.getBeers().put(beer, new Position(Integer.parseInt(quantityTextField.getText()), false));
         creationOrder.updateTree();
         dispose();
     }

@@ -1,7 +1,7 @@
 package JInterface;
 
 import enums.DrinksEnums;
-import enums.PizzaEnums;
+import models.Position;
 import products.Drink;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class addDrink extends JDialog {
+public class AddDrink extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -20,7 +20,7 @@ public class addDrink extends JDialog {
     private JComboBox volumeCombo;
     private JTextField quantityTextField;
 
-    public addDrink(newOrder creationOrder) {
+    public AddDrink(NewOrder creationOrder) {
 
         pack();
         setSize(400, 200);
@@ -50,14 +50,16 @@ public class addDrink extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK(newOrder creationOrder) {
+    private void onOK(NewOrder creationOrder) {
         Drink drink = new Drink();
         drink.setType(DrinksEnums.type.valueOf((String) typeCombo.getSelectedItem()));
         drink.setTaste(DrinksEnums.taste.valueOf((String) tasteCombo.getSelectedItem()));
         drink.setVolume(DrinksEnums.volume.valueOf((String) volumeCombo.getSelectedItem()));
-        if (creationOrder.createdOrder.getDrinks().getOrDefault(drink, 0)!=0){
-            creationOrder.createdOrder.getDrinks().put(drink, Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getDrinks().get(drink));
-        } else creationOrder.createdOrder.getDrinks().put(drink, Integer.valueOf(quantityTextField.getText()));
+        if (creationOrder.createdOrder.getDrinks().getOrDefault(drink, new Position(0, false)).getQuantity() != 0) {
+            creationOrder.createdOrder.getDrinks().put(drink, new Position
+                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getDrinks().get(drink).getQuantity(), false));
+        } else
+            creationOrder.createdOrder.getDrinks().put(drink, new Position(Integer.parseInt(quantityTextField.getText()), false));
         creationOrder.updateTree();
         dispose();
     }
@@ -67,7 +69,7 @@ public class addDrink extends JDialog {
         dispose();
     }
 
-    public void fillComboBoxes(){
+    public void fillComboBoxes() {
         DefaultComboBoxModel<String> typeComboModel = new DefaultComboBoxModel<>();
         typeComboModel.addElement(String.valueOf(DrinksEnums.type.LEMONADE));
         typeComboModel.addElement(String.valueOf(DrinksEnums.type.KVASS));

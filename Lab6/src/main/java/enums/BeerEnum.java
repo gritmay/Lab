@@ -8,7 +8,10 @@ public class BeerEnum {
         VASILEOSTROVSKAYABREWERY("Василеостровская пивоварня"),
         SALDENS("Salden's");
 
-        brand(String DESC) {
+        public final String value;
+
+        brand(String value) {
+            this.value = value;
         }
     }
 
@@ -16,7 +19,10 @@ public class BeerEnum {
         GLASS("Стекло"),
         ALUMINUM("Алюминий");
 
-        container(String DESC) {
+        public final String value;
+
+        container(String value) {
+            this.value = value;
         }
     }
 
@@ -28,7 +34,10 @@ public class BeerEnum {
         BARLEYWINE("Барлейвайн"),
         WEISSBIR("Вайсбир");
 
-        sort(String DESC) {
+        public final String value;
+
+        sort(String value) {
+            this.value = value;
         }
     }
 
@@ -37,7 +46,10 @@ public class BeerEnum {
         MEDIUM(0.66f),
         LARGE(1.66f);
 
+        public final float litres;
+
         volume(float litres) {
+            this.litres = litres;
         }
     }
 }

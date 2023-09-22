@@ -7,7 +7,10 @@ public class PotatoEnums {
         MEDIUM("Стандартный"),
         LARGE("Большой");
 
-        size(String DESC) {
+        public final String value;
+
+        size(String value) {
+            this.value = value;
         }
     }
 
@@ -17,7 +20,10 @@ public class PotatoEnums {
         BBQ("Барбекю"),
         SOURSPICY("Кисло-острый");
 
-        sauce(String DESC) {
+        public final String value;
+
+        sauce(String value) {
+            this.value = value;
         }
     }
 }

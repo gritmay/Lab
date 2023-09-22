@@ -1,16 +1,15 @@
 package JInterface;
 
 import enums.PizzaEnums;
+import models.Position;
 import products.Pizza;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class addPizza extends JDialog {
+public class AddPizza extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -19,7 +18,7 @@ public class addPizza extends JDialog {
     private JComboBox doughCombo;
     private JTextField quantityTextField;
 
-    public addPizza(newOrder creationOrder) {
+    public AddPizza(NewOrder creationOrder) {
 
         pack();
         setSize(400, 200);
@@ -45,24 +44,25 @@ public class addPizza extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK(newOrder creationOrder) {
+    private void onOK(NewOrder creationOrder) {
         Pizza pizza = new Pizza();
         pizza.setSort(PizzaEnums.sort.valueOf((String) sortCombo.getSelectedItem()));
         pizza.setDiameter(PizzaEnums.diameter.valueOf((String) diameterCombo.getSelectedItem()));
         pizza.setDough(PizzaEnums.dough.valueOf((String) doughCombo.getSelectedItem()));
-        if (creationOrder.createdOrder.getPizzas().getOrDefault(pizza, 0)!=0){
-            creationOrder.createdOrder.getPizzas().put(pizza, Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getPizzas().get(pizza));
-        } else creationOrder.createdOrder.getPizzas().put(pizza, Integer.valueOf(quantityTextField.getText()));
+        if (creationOrder.createdOrder.getPizzas().getOrDefault(pizza, new Position(0, false)).getQuantity() != 0) {
+            creationOrder.createdOrder.getPizzas().put(pizza, new Position
+                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getPizzas().get(pizza).getQuantity(), false));
+        } else
+            creationOrder.createdOrder.getPizzas().put(pizza, new Position(Integer.parseInt(quantityTextField.getText()), false));
         creationOrder.updateTree();
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 
-    public void fillComboBoxes(){
+    public void fillComboBoxes() {
         DefaultComboBoxModel<String> sortComboModel = new DefaultComboBoxModel<>();
         sortComboModel.addElement(String.valueOf(PizzaEnums.sort.PEPERONI));
         sortComboModel.addElement(String.valueOf(PizzaEnums.sort.HAWAIIAN));

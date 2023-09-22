@@ -1,7 +1,7 @@
 package JInterface;
 
-import enums.DrinksEnums;
 import enums.PotatoEnums;
+import models.Position;
 import products.Potato;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class addPotato extends JDialog {
+public class AddPotato extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -17,7 +17,7 @@ public class addPotato extends JDialog {
     private JComboBox sauceCombo;
     private JTextField quantityTextField;
 
-    public addPotato(newOrder creationOrder) {
+    public AddPotato(NewOrder creationOrder) {
 
         pack();
         setSize(400, 200);
@@ -43,13 +43,14 @@ public class addPotato extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK(newOrder creationOrder) {
+    private void onOK(NewOrder creationOrder) {
         Potato potato = new Potato();
         potato.setSize(PotatoEnums.size.valueOf((String) sizeCombo.getSelectedItem()));
         potato.setSauce(PotatoEnums.sauce.valueOf((String) sauceCombo.getSelectedItem()));
-        if (creationOrder.createdOrder.getPotatoes().getOrDefault(potato, 0)!=0){
-            creationOrder.createdOrder.getPotatoes().put(potato, Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getPotatoes().get(potato));
-        } else creationOrder.createdOrder.getPotatoes().put(potato, Integer.valueOf(quantityTextField.getText()));
+        if (creationOrder.createdOrder.getPotatoes().getOrDefault(potato, new Position(0, false)).getQuantity()!=0){
+            creationOrder.createdOrder.getPotatoes().put(potato, new Position
+                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getPotatoes().get(potato).getQuantity(), false));
+        } else creationOrder.createdOrder.getPotatoes().put(potato, new Position(Integer.parseInt(quantityTextField.getText()), false));
         creationOrder.updateTree();
         dispose();
     }

@@ -2,6 +2,8 @@ package products;
 
 import enums.DrinksEnums;
 
+import java.util.Objects;
+
 public class Drink {
 
     private DrinksEnums.type type;
@@ -10,11 +12,22 @@ public class Drink {
 
     @Override
     public String toString() {
-        return "Drink{" +
-                "type=" + type +
-                ", taste=" + taste +
-                ", volume=" + volume +
-                '}';
+        if (type == DrinksEnums.type.KVASS) {
+            return type.value + ", " + volume.litres + " литра";
+        } else return type.value + ", вкус " + taste.value + ", " + volume.litres + " литра";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Drink drink = (Drink) o;
+        return type == drink.type && taste == drink.taste && volume == drink.volume;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, taste, volume);
     }
 
     public DrinksEnums.type getType() {

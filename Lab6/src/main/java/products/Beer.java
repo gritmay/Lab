@@ -2,6 +2,8 @@ package products;
 
 import enums.BeerEnum;
 
+import java.util.Objects;
+
 public class Beer {
 
     private BeerEnum.brand brand;
@@ -11,12 +13,20 @@ public class Beer {
 
     @Override
     public String toString() {
-        return "Beer{" +
-                "brand=" + brand +
-                ", sort=" + sort +
-                ", container=" + container +
-                ", volume=" + volume +
-                '}';
+        return sort.value + " \"" + brand.value + "\", тара: " + container.value + ", " + volume.litres + " литра";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Beer beer = (Beer) o;
+        return brand == beer.brand && sort == beer.sort && container == beer.container && volume == beer.volume;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(brand, sort, container, volume);
     }
 
     public BeerEnum.brand getBrand() {

@@ -6,7 +6,10 @@ public class DrinksEnums {
         LEMONADE("Лимонад"),
         KVASS("Квас");
 
-        type(String DESC) {
+        public final String value;
+
+        type(String value) {
+            this.value = value;
         }
     }
 
@@ -15,7 +18,9 @@ public class DrinksEnums {
         TANGERINE("Мандарин"),
         AVOCADO("Авокадо");
 
-        taste(String DESC) {
+        public final String value;
+        taste(String value) {
+            this.value = value;
         }
     }
 
@@ -26,7 +31,10 @@ public class DrinksEnums {
         ONEANDHALF(1.5f),
         TWOLITRES(2);
 
+        public final float litres;
+
         volume(float litres) {
+            this.litres = litres;
         }
     }
 }
