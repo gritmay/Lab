@@ -16,7 +16,7 @@ public class AddPizza extends JDialog {
     private JComboBox sortCombo;
     private JComboBox diameterCombo;
     private JComboBox doughCombo;
-    private JTextField quantityTextField;
+    private JSpinner quantitySpinner;
 
     public AddPizza(NewOrder creationOrder) {
 
@@ -25,8 +25,11 @@ public class AddPizza extends JDialog {
         setVisible(true);
         setContentPane(contentPane);
         setModal(true);
+        setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonOK);
         fillComboBoxes();
+        SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(1, 1, 100, 1);
+        quantitySpinner.setModel(spinnerNumberModel);
 
         buttonOK.addActionListener(e -> onOK(creationOrder));
 
@@ -51,9 +54,9 @@ public class AddPizza extends JDialog {
         pizza.setDough(PizzaEnums.dough.valueOf((String) doughCombo.getSelectedItem()));
         if (creationOrder.createdOrder.getPizzas().getOrDefault(pizza, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getPizzas().put(pizza, new Position
-                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getPizzas().get(pizza).getQuantity(), false));
+                    ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getPizzas().get(pizza).getQuantity(), false));
         } else
-            creationOrder.createdOrder.getPizzas().put(pizza, new Position(Integer.parseInt(quantityTextField.getText()), false));
+            creationOrder.createdOrder.getPizzas().put(pizza, new Position((int) quantitySpinner.getValue(), false));
         creationOrder.updateTree();
         dispose();
     }

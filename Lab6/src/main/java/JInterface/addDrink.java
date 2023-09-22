@@ -18,7 +18,7 @@ public class AddDrink extends JDialog {
     private JComboBox typeCombo;
     private JComboBox tasteCombo;
     private JComboBox volumeCombo;
-    private JTextField quantityTextField;
+    private JSpinner quantitySpinner;
 
     public AddDrink(NewOrder creationOrder) {
 
@@ -26,9 +26,12 @@ public class AddDrink extends JDialog {
         setSize(400, 200);
         setVisible(true);
         setContentPane(contentPane);
+        setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         fillComboBoxes();
+        SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(1, 1, 100, 1);
+        quantitySpinner.setModel(spinnerNumberModel);
 
         buttonOK.addActionListener(e -> onOK(creationOrder));
 
@@ -57,15 +60,14 @@ public class AddDrink extends JDialog {
         drink.setVolume(DrinksEnums.volume.valueOf((String) volumeCombo.getSelectedItem()));
         if (creationOrder.createdOrder.getDrinks().getOrDefault(drink, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getDrinks().put(drink, new Position
-                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getDrinks().get(drink).getQuantity(), false));
+                    ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getDrinks().get(drink).getQuantity(), false));
         } else
-            creationOrder.createdOrder.getDrinks().put(drink, new Position(Integer.parseInt(quantityTextField.getText()), false));
+            creationOrder.createdOrder.getDrinks().put(drink, new Position((int) quantitySpinner.getValue(), false));
         creationOrder.updateTree();
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 

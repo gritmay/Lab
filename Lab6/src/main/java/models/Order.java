@@ -38,14 +38,14 @@ public class Order {
     }
 
     public DefaultMutableTreeNode orderNode(){
-        DefaultMutableTreeNode orderNode = new DefaultMutableTreeNode("Заказ №" + id + ", получатель: " + client + ", заказ " + isReady());
+        DefaultMutableTreeNode orderNode = new DefaultMutableTreeNode(toString());
         if (!this.getPizzas().isEmpty()){
-            DefaultMutableTreeNode pizzazNode = new DefaultMutableTreeNode("Пиццы:");
+            DefaultMutableTreeNode pizzasNode = new DefaultMutableTreeNode("Пиццы:");
             this.getPizzas().forEach(((pizza, position) -> {
                 DefaultMutableTreeNode pizzaNode = new DefaultMutableTreeNode(pizza.toString() + ", кол-во: " + position.getQuantity() + ", " + position.isReadyString());
-                pizzazNode.add(pizzaNode);
+                pizzasNode.add(pizzaNode);
             }));
-            orderNode.add(pizzazNode);
+            orderNode.add(pizzasNode);
         }
         if (!this.getDrinks().isEmpty()){
             DefaultMutableTreeNode drinksNode = new DefaultMutableTreeNode("Напитки:");
@@ -78,7 +78,8 @@ public class Order {
     public String toString() {
         return "Заказ № " + id +
                 ", получатель: " + client +
-                ", адрес: " + address;
+                ", адрес: " + address +
+                ", заказ " + isReady();
     }
 
     public int getId() {

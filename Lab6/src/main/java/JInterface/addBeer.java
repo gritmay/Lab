@@ -16,18 +16,21 @@ public class AddBeer extends JDialog {
     private JComboBox brandCombo;
     private JComboBox sortCombo;
     private JComboBox volumeCombo;
-    private JTextField quantityTextField;
     private JComboBox containerCombo;
+    private JSpinner quantitySpinner;
 
     public AddBeer(NewOrder creationOrder) {
 
-        pack();
+        //pack();
         setSize(400, 200);
         setVisible(true);
         setContentPane(contentPane);
+        setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         fillComboBoxes();
+        SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(1, 1, 100, 1);
+        quantitySpinner.setModel(spinnerNumberModel);
 
         buttonOK.addActionListener(e -> onOK(creationOrder));
 
@@ -51,10 +54,10 @@ public class AddBeer extends JDialog {
         beer.setContainer(BeerEnum.container.valueOf((String) containerCombo.getSelectedItem()));
         beer.setSort(BeerEnum.sort.valueOf((String) sortCombo.getSelectedItem()));
         beer.setVolume(BeerEnum.volume.valueOf((String) volumeCombo.getSelectedItem()));
-        if (creationOrder.createdOrder.getBeers().getOrDefault(beer, new Position(0, false)).getQuantity()!=0){
+        if (creationOrder.createdOrder.getBeers().getOrDefault(beer, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getBeers().put(beer, new Position
-                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getBeers().get(beer).getQuantity(), false));
-        } else creationOrder.createdOrder.getBeers().put(beer, new Position(Integer.parseInt(quantityTextField.getText()), false));
+                    ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getBeers().get(beer).getQuantity(), false));
+        } else creationOrder.createdOrder.getBeers().put(beer, new Position((int) quantitySpinner.getValue(), false));
         creationOrder.updateTree();
         dispose();
     }
@@ -64,7 +67,7 @@ public class AddBeer extends JDialog {
         dispose();
     }
 
-    public void fillComboBoxes(){
+    public void fillComboBoxes() {
         DefaultComboBoxModel<String> brandComboModel = new DefaultComboBoxModel<>();
         brandComboModel.addElement(String.valueOf(BeerEnum.brand.AFANASIY));
         brandComboModel.addElement(String.valueOf(BeerEnum.brand.HEINEKEN));

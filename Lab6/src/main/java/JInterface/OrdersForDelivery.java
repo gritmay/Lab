@@ -5,8 +5,6 @@ import models.Order;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class OrdersForDelivery extends JDialog {
@@ -20,6 +18,7 @@ public class OrdersForDelivery extends JDialog {
         setSize(500, 400);
         setVisible(true);
         setContentPane(contentPane);
+        setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 

@@ -15,7 +15,7 @@ public class AddPotato extends JDialog {
     private JButton buttonCancel;
     private JComboBox sizeCombo;
     private JComboBox sauceCombo;
-    private JTextField quantityTextField;
+    private JSpinner quantitySpinner;
 
     public AddPotato(NewOrder creationOrder) {
 
@@ -23,6 +23,7 @@ public class AddPotato extends JDialog {
         setSize(400, 200);
         setVisible(true);
         setContentPane(contentPane);
+        setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         fillComboBoxes();
@@ -47,10 +48,11 @@ public class AddPotato extends JDialog {
         Potato potato = new Potato();
         potato.setSize(PotatoEnums.size.valueOf((String) sizeCombo.getSelectedItem()));
         potato.setSauce(PotatoEnums.sauce.valueOf((String) sauceCombo.getSelectedItem()));
-        if (creationOrder.createdOrder.getPotatoes().getOrDefault(potato, new Position(0, false)).getQuantity()!=0){
+        if (creationOrder.createdOrder.getPotatoes().getOrDefault(potato, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getPotatoes().put(potato, new Position
-                    (Integer.parseInt(quantityTextField.getText()) + creationOrder.createdOrder.getPotatoes().get(potato).getQuantity(), false));
-        } else creationOrder.createdOrder.getPotatoes().put(potato, new Position(Integer.parseInt(quantityTextField.getText()), false));
+                    ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getPotatoes().get(potato).getQuantity(), false));
+        } else
+            creationOrder.createdOrder.getPotatoes().put(potato, new Position((int) quantitySpinner.getValue(), false));
         creationOrder.updateTree();
         dispose();
     }
@@ -59,7 +61,7 @@ public class AddPotato extends JDialog {
         dispose();
     }
 
-    public void fillComboBoxes(){
+    public void fillComboBoxes() {
         DefaultComboBoxModel<String> sizeComboModel = new DefaultComboBoxModel<>();
         sizeComboModel.addElement(String.valueOf(PotatoEnums.size.SMALL));
         sizeComboModel.addElement(String.valueOf(PotatoEnums.size.MEDIUM));

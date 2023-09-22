@@ -23,7 +23,7 @@ public class Position {
     }
 
     public String isReadyString() {
-        if (isReady){
+        if (isReady) {
             return "готов";
         } else return "не готов";
     }

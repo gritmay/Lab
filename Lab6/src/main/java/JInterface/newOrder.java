@@ -30,7 +30,7 @@ public class NewOrder extends JDialog {
         setSize(500, 400);
         setVisible(true);
         setContentPane(contentPane);
-        setModal(true);
+        setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonOK);
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("Заказ");
         DefaultTreeModel model = new DefaultTreeModel(top);
@@ -43,18 +43,18 @@ public class NewOrder extends JDialog {
 
         buttonOK.addActionListener(e -> onOK(ordersManager));
 
-        buttonCancel.addActionListener(e -> onCancel());
+        buttonCancel.addActionListener(e -> onCancel(ordersManager));
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                onCancel();
+                onCancel(ordersManager);
             }
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(ordersManager), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         addPizzaButton.addActionListener(e -> new AddPizza(this));
 
@@ -66,15 +66,19 @@ public class NewOrder extends JDialog {
     }
 
     private void onOK(OrdersManager ordersManager) {
-        createdOrder.setId(ordersManager.orderId++);
-        createdOrder.setClient(receiverTextField.getText());
-        createdOrder.setAddress(addressTextField.getText());
-        ordersManager.activeOrders.add(createdOrder);
-        ordersManager.updateTree();
-        dispose();
+        if (!receiverTextField.getText().equals("") && !addressTextField.getText().equals("")) {
+            createdOrder.setId(ordersManager.orderId++);
+            createdOrder.setClient(receiverTextField.getText());
+            createdOrder.setAddress(addressTextField.getText());
+            ordersManager.activeOrders.add(createdOrder);
+            ordersManager.updateTree();
+            ordersManager.setEnabled(true);
+            dispose();
+        } else JOptionPane.showMessageDialog(this, "Необходимо заполнить адрес и имя заказчика");
     }
 
-    private void onCancel() {
+    private void onCancel(OrdersManager ordersManager) {
+        ordersManager.setEnabled(true);
         dispose();
     }
 

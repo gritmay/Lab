@@ -29,25 +29,28 @@ public class OrdersManager extends JFrame {
         tree1.setModel(model);
         setTitle("Pizzeria Orders Manager");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 450);
+        setSize(550, 450);
         setLocationRelativeTo(null);
         setVisible(true);
 
-        addOrderButton.addActionListener(e -> new NewOrder(this));
+        addOrderButton.addActionListener(e -> {
+            setEnabled(false);
+            new NewOrder(this);
+        });
 
         updateStatusButtonButton.addActionListener(e -> {
-            for (Order order : activeOrders){
+            for (Order order : activeOrders) {
                 order.getPizzas().forEach((pizza, position) -> {
-                    if (Math.random()>0.7) position.setReady(true);
+                    if (Math.random() > 0.7) position.setReady(true);
                 });
                 order.getDrinks().forEach((drink, position) -> {
-                    if (Math.random()>0.4) position.setReady(true);
+                    if (Math.random() > 0.4) position.setReady(true);
                 });
                 order.getBeers().forEach((beer, position) -> {
-                    if (Math.random()>0.5) position.setReady(true);
+                    if (Math.random() > 0.5) position.setReady(true);
                 });
                 order.getPotatoes().forEach((potato, position) -> {
-                    if (Math.random()>0.6) position.setReady(true);
+                    if (Math.random() > 0.6) position.setReady(true);
                 });
                 if (order.isReadyCheck()) order.setReady(true);
             }
@@ -57,10 +60,14 @@ public class OrdersManager extends JFrame {
             new OrdersForDelivery(ordersForDelivery);
         });
         toDeliveryButton.addActionListener(e -> {
-            int orderForDeliveryId = (int) ordersCombo.getSelectedItem();
-            ordersForDelivery.add(activeOrders.stream().filter(order -> order.getId()==orderForDeliveryId).findFirst().get());
-            activeOrders.removeIf(order -> order.getId()==orderForDeliveryId);
-            updateTree();
+            if (ordersCombo.getSelectedItem() != null) {
+                Order orderForDelivery = activeOrders.stream().filter(order -> order.getId() == (int) ordersCombo.getSelectedItem()).findFirst().get();
+                if (orderForDelivery.isReadyCheck()) {
+                    ordersForDelivery.add(orderForDelivery);
+                    activeOrders.removeIf(order -> order.getId() == orderForDelivery.getId());
+                    updateTree();
+                } else JOptionPane.showMessageDialog(this, "Заказ не готов");
+            } else JOptionPane.showMessageDialog(this, "Заказ не выбран");
         });
     }
 
