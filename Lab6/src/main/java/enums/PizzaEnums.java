@@ -8,16 +8,22 @@ public class PizzaEnums {
         HAWAIIAN("Гавайская"),
         THREECHEESES("Три сыра");
 
-        sort(String DESC) {
+        public final String desc;
+
+        sort(String desc) {
+            this.desc = desc;
         }
     }
 
     public enum diameter{
         SMALL(20),
-        MEDIUM(20),
-        LARGE(20);
+        MEDIUM(26),
+        LARGE(30);
+
+        public final int value;
 
         diameter(int value) {
+            this.value = value;
         }
     }
 
@@ -25,7 +31,10 @@ public class PizzaEnums {
         THIN("Тонкое"),
         CLASSIC("Классическое");
 
+        public final String type;
+
         dough(String type) {
+            this.type = type;
         }
     }
 }
