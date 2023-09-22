@@ -6,13 +6,19 @@ import java.util.Objects;
 
 public class Drink {
 
-    private DrinksEnums.type type;
-    private DrinksEnums.taste taste;
-    private DrinksEnums.volume volume;
+    private DrinksEnums.Type type;
+    private DrinksEnums.Taste taste;
+    private DrinksEnums.Volume volume;
+
+    public Drink() {
+        this.type = DrinksEnums.Type.randomType();
+        this.taste = DrinksEnums.Taste.randomTaste();
+        this.volume = DrinksEnums.Volume.randomVolume();
+    }
 
     @Override
     public String toString() {
-        if (type == DrinksEnums.type.KVASS) {
+        if (type == DrinksEnums.Type.KVASS) {
             return type.value + ", " + volume.litres + " литра";
         } else return type.value + ", вкус " + taste.value + ", " + volume.litres + " литра";
     }
@@ -30,27 +36,27 @@ public class Drink {
         return Objects.hash(type, taste, volume);
     }
 
-    public DrinksEnums.type getType() {
+    public DrinksEnums.Type getType() {
         return type;
     }
 
-    public void setType(DrinksEnums.type type) {
+    public void setType(DrinksEnums.Type type) {
         this.type = type;
     }
 
-    public DrinksEnums.taste getTaste() {
+    public DrinksEnums.Taste getTaste() {
         return taste;
     }
 
-    public void setTaste(DrinksEnums.taste taste) {
+    public void setTaste(DrinksEnums.Taste taste) {
         this.taste = taste;
     }
 
-    public DrinksEnums.volume getVolume() {
+    public DrinksEnums.Volume getVolume() {
         return volume;
     }
 
-    public void setVolume(DrinksEnums.volume volume) {
+    public void setVolume(DrinksEnums.Volume volume) {
         this.volume = volume;
     }
 }

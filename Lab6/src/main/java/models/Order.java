@@ -1,6 +1,7 @@
 package models;
 
 import products.Beer;
+import products.Burger;
 import products.Drink;
 import products.Pizza;
 import products.Potato;
@@ -15,12 +16,13 @@ public class Order {
     private String client;
     private String address;
     private boolean isReady;
-    private HashMap<Pizza, Position> pizzas;
-    private HashMap<Drink, Position> drinks;
-    private HashMap<Beer, Position> beers;
-    private HashMap<Potato, Position> potatoes;
+    private HashMap<Pizza, Position> pizzas = new HashMap<>();
+    private HashMap<Drink, Position> drinks = new HashMap<>();
+    private HashMap<Beer, Position> beers = new HashMap<>();
+    private HashMap<Potato, Position> potatoes = new HashMap<>();
+    private HashMap<Burger, Position> burgers = new HashMap<>();
 
-    public boolean isReadyCheck(){
+    public boolean isReadyCheck() {
         AtomicBoolean result = new AtomicBoolean(true);
         pizzas.forEach((pizza, position) -> {
             if (!position.isReady()) result.set(false);
@@ -34,12 +36,15 @@ public class Order {
         potatoes.forEach((potatoes, position) -> {
             if (!position.isReady()) result.set(false);
         });
+        burgers.forEach((burgers, position) -> {
+            if (!position.isReady()) result.set(false);
+        });
         return result.get();
     }
 
-    public DefaultMutableTreeNode orderNode(){
+    public DefaultMutableTreeNode orderNode() {
         DefaultMutableTreeNode orderNode = new DefaultMutableTreeNode(toString());
-        if (!this.getPizzas().isEmpty()){
+        if (!this.getPizzas().isEmpty()) {
             DefaultMutableTreeNode pizzasNode = new DefaultMutableTreeNode("Пиццы:");
             this.getPizzas().forEach(((pizza, position) -> {
                 DefaultMutableTreeNode pizzaNode = new DefaultMutableTreeNode(pizza.toString() + ", кол-во: " + position.getQuantity() + ", " + position.isReadyString());
@@ -47,7 +52,7 @@ public class Order {
             }));
             orderNode.add(pizzasNode);
         }
-        if (!this.getDrinks().isEmpty()){
+        if (!this.getDrinks().isEmpty()) {
             DefaultMutableTreeNode drinksNode = new DefaultMutableTreeNode("Напитки:");
             this.getDrinks().forEach(((drink, position) -> {
                 DefaultMutableTreeNode drinkNode = new DefaultMutableTreeNode(drink.toString() + ", кол-во: " + position.getQuantity() + ", " + position.isReadyString());
@@ -55,7 +60,7 @@ public class Order {
             }));
             orderNode.add(drinksNode);
         }
-        if (!this.getBeers().isEmpty()){
+        if (!this.getBeers().isEmpty()) {
             DefaultMutableTreeNode beersNode = new DefaultMutableTreeNode("Пиво:");
             this.getBeers().forEach(((beer, position) -> {
                 DefaultMutableTreeNode beerNode = new DefaultMutableTreeNode(beer.toString() + ", кол-во: " + position.getQuantity() + ", " + position.isReadyString());
@@ -63,13 +68,21 @@ public class Order {
             }));
             orderNode.add(beersNode);
         }
-        if (!this.getPotatoes().isEmpty()){
+        if (!this.getPotatoes().isEmpty()) {
             DefaultMutableTreeNode potatoesNode = new DefaultMutableTreeNode("Картошка:");
             this.getPotatoes().forEach(((potato, position) -> {
                 DefaultMutableTreeNode potatoNode = new DefaultMutableTreeNode(potato.toString() + ", кол-во: " + position.getQuantity() + ", " + position.isReadyString());
                 potatoesNode.add(potatoNode);
             }));
             orderNode.add(potatoesNode);
+        }
+        if (!this.getBurgers().isEmpty()) {
+            DefaultMutableTreeNode burgersNode = new DefaultMutableTreeNode("Бургеры:");
+            this.getBurgers().forEach(((burger, position) -> {
+                DefaultMutableTreeNode burgerNode = new DefaultMutableTreeNode(burger.toString() + ", кол-во: " + position.getQuantity() + ", " + position.isReadyString());
+                burgersNode.add(burgerNode);
+            }));
+            orderNode.add(burgersNode);
         }
         return orderNode;
     }
@@ -80,6 +93,14 @@ public class Order {
                 ", получатель: " + client +
                 ", адрес: " + address +
                 ", заказ " + isReady();
+    }
+
+    public HashMap<Burger, Position> getBurgers() {
+        return burgers;
+    }
+
+    public void setBurgers(HashMap<Burger, Position> burgers) {
+        this.burgers = burgers;
     }
 
     public int getId() {
@@ -109,8 +130,7 @@ public class Order {
     public String isReady() {
         if (isReady) {
             return "готов";
-        }
-        else return "не готов";
+        } else return "не готов";
     }
 
     public void setReady(boolean ready) {

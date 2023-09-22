@@ -1,6 +1,6 @@
 package JInterface;
 
-import enums.BeerEnum;
+import enums.BeerEnums;
 import models.Position;
 import products.Beer;
 
@@ -50,10 +50,10 @@ public class AddBeer extends JDialog {
 
     private void onOK(NewOrder creationOrder) {
         Beer beer = new Beer();
-        beer.setBrand(BeerEnum.brand.valueOf((String) brandCombo.getSelectedItem()));
-        beer.setContainer(BeerEnum.container.valueOf((String) containerCombo.getSelectedItem()));
-        beer.setSort(BeerEnum.sort.valueOf((String) sortCombo.getSelectedItem()));
-        beer.setVolume(BeerEnum.volume.valueOf((String) volumeCombo.getSelectedItem()));
+        beer.setBrand(BeerEnums.Brand.valueOf((String) brandCombo.getSelectedItem()));
+        beer.setContainer(BeerEnums.Container.valueOf((String) containerCombo.getSelectedItem()));
+        beer.setSort(BeerEnums.Sort.valueOf((String) sortCombo.getSelectedItem()));
+        beer.setVolume(BeerEnums.Volume.valueOf((String) volumeCombo.getSelectedItem()));
         if (creationOrder.createdOrder.getBeers().getOrDefault(beer, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getBeers().put(beer, new Position
                     ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getBeers().get(beer).getQuantity(), false));
@@ -69,30 +69,30 @@ public class AddBeer extends JDialog {
 
     public void fillComboBoxes() {
         DefaultComboBoxModel<String> brandComboModel = new DefaultComboBoxModel<>();
-        brandComboModel.addElement(String.valueOf(BeerEnum.brand.AFANASIY));
-        brandComboModel.addElement(String.valueOf(BeerEnum.brand.HEINEKEN));
-        brandComboModel.addElement(String.valueOf(BeerEnum.brand.VASILEOSTROVSKAYABREWERY));
-        brandComboModel.addElement(String.valueOf(BeerEnum.brand.SALDENS));
+        brandComboModel.addElement(String.valueOf(BeerEnums.Brand.AFANASIY));
+        brandComboModel.addElement(String.valueOf(BeerEnums.Brand.HEINEKEN));
+        brandComboModel.addElement(String.valueOf(BeerEnums.Brand.VASILEOSTROVSKAYABREWERY));
+        brandComboModel.addElement(String.valueOf(BeerEnums.Brand.SALDENS));
         brandCombo.setModel(brandComboModel);
 
         DefaultComboBoxModel<String> containerComboModel = new DefaultComboBoxModel<>();
-        containerComboModel.addElement(String.valueOf(BeerEnum.container.GLASS));
-        containerComboModel.addElement(String.valueOf(BeerEnum.container.ALUMINUM));
+        containerComboModel.addElement(String.valueOf(BeerEnums.Container.GLASS));
+        containerComboModel.addElement(String.valueOf(BeerEnums.Container.ALUMINUM));
         containerCombo.setModel(containerComboModel);
 
         DefaultComboBoxModel<String> sortComboModel = new DefaultComboBoxModel<>();
-        sortComboModel.addElement(String.valueOf(BeerEnum.sort.LAGER));
-        sortComboModel.addElement(String.valueOf(BeerEnum.sort.PORTER));
-        sortComboModel.addElement(String.valueOf(BeerEnum.sort.STOUT));
-        sortComboModel.addElement(String.valueOf(BeerEnum.sort.IPA));
-        sortComboModel.addElement(String.valueOf(BeerEnum.sort.BARLEYWINE));
-        sortComboModel.addElement(String.valueOf(BeerEnum.sort.WEISSBIR));
+        sortComboModel.addElement(String.valueOf(BeerEnums.Sort.LAGER));
+        sortComboModel.addElement(String.valueOf(BeerEnums.Sort.PORTER));
+        sortComboModel.addElement(String.valueOf(BeerEnums.Sort.STOUT));
+        sortComboModel.addElement(String.valueOf(BeerEnums.Sort.IPA));
+        sortComboModel.addElement(String.valueOf(BeerEnums.Sort.BARLEYWINE));
+        sortComboModel.addElement(String.valueOf(BeerEnums.Sort.WEISSBIR));
         sortCombo.setModel(sortComboModel);
 
         DefaultComboBoxModel<String> volumeComboModel = new DefaultComboBoxModel<>();
-        volumeComboModel.addElement(String.valueOf(BeerEnum.volume.SMALL));
-        volumeComboModel.addElement(String.valueOf(BeerEnum.volume.MEDIUM));
-        volumeComboModel.addElement(String.valueOf(BeerEnum.volume.LARGE));
+        volumeComboModel.addElement(String.valueOf(BeerEnums.Volume.SMALL));
+        volumeComboModel.addElement(String.valueOf(BeerEnums.Volume.MEDIUM));
+        volumeComboModel.addElement(String.valueOf(BeerEnums.Volume.LARGE));
         volumeCombo.setModel(volumeComboModel);
     }
 }

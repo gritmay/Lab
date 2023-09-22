@@ -1,30 +1,45 @@
 package enums;
 
+import java.util.Random;
+
 public class DrinksEnums {
 
-    public enum type{
+    public static final Random random = new Random();
+
+    public enum Type {
         LEMONADE("Лимонад"),
         KVASS("Квас");
 
         public final String value;
 
-        type(String value) {
+        Type(String value) {
             this.value = value;
+        }
+
+        public static Type randomType() {
+            Type[] types = Type.values();
+            return types[random.nextInt(types.length)];
         }
     }
 
-    public enum taste{
+    public enum Taste {
         LINGONBERRY("Брусника"),
         TANGERINE("Мандарин"),
         AVOCADO("Авокадо");
 
         public final String value;
-        taste(String value) {
+
+        Taste(String value) {
             this.value = value;
+        }
+
+        public static Taste randomTaste() {
+            Taste[] tastes = Taste.values();
+            return tastes[random.nextInt(tastes.length)];
         }
     }
 
-    public enum volume{
+    public enum Volume {
         SMALL(0.3f),
         MEDIUM(0.5f),
         LITER(1),
@@ -33,8 +48,13 @@ public class DrinksEnums {
 
         public final float litres;
 
-        volume(float litres) {
+        Volume(float litres) {
             this.litres = litres;
+        }
+
+        public static Volume randomVolume() {
+            Volume[] volumes = Volume.values();
+            return volumes[random.nextInt(volumes.length)];
         }
     }
 }

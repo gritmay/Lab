@@ -6,8 +6,13 @@ import java.util.Objects;
 
 public class Potato {
 
-    private PotatoEnums.size size;
-    private PotatoEnums.sauce sauce;
+    private PotatoEnums.Size size;
+    private PotatoEnums.Sauce sauce;
+
+    public Potato() {
+        this.size = PotatoEnums.Size.randomSize();
+        this.sauce = PotatoEnums.Sauce.randomSauce();
+    }
 
     @Override
     public String toString() {
@@ -27,19 +32,19 @@ public class Potato {
         return Objects.hash(size, sauce);
     }
 
-    public PotatoEnums.size getSize() {
+    public PotatoEnums.Size getSize() {
         return size;
     }
 
-    public void setSize(PotatoEnums.size size) {
+    public void setSize(PotatoEnums.Size size) {
         this.size = size;
     }
 
-    public PotatoEnums.sauce getSauce() {
+    public PotatoEnums.Sauce getSauce() {
         return sauce;
     }
 
-    public void setSauce(PotatoEnums.sauce sauce) {
+    public void setSauce(PotatoEnums.Sauce sauce) {
         this.sauce = sauce;
     }
 }

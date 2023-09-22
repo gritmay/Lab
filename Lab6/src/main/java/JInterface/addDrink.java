@@ -55,9 +55,9 @@ public class AddDrink extends JDialog {
 
     private void onOK(NewOrder creationOrder) {
         Drink drink = new Drink();
-        drink.setType(DrinksEnums.type.valueOf((String) typeCombo.getSelectedItem()));
-        drink.setTaste(DrinksEnums.taste.valueOf((String) tasteCombo.getSelectedItem()));
-        drink.setVolume(DrinksEnums.volume.valueOf((String) volumeCombo.getSelectedItem()));
+        drink.setType(DrinksEnums.Type.valueOf((String) typeCombo.getSelectedItem()));
+        drink.setTaste(DrinksEnums.Taste.valueOf((String) tasteCombo.getSelectedItem()));
+        drink.setVolume(DrinksEnums.Volume.valueOf((String) volumeCombo.getSelectedItem()));
         if (creationOrder.createdOrder.getDrinks().getOrDefault(drink, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getDrinks().put(drink, new Position
                     ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getDrinks().get(drink).getQuantity(), false));
@@ -73,20 +73,20 @@ public class AddDrink extends JDialog {
 
     public void fillComboBoxes() {
         DefaultComboBoxModel<String> typeComboModel = new DefaultComboBoxModel<>();
-        typeComboModel.addElement(String.valueOf(DrinksEnums.type.LEMONADE));
-        typeComboModel.addElement(String.valueOf(DrinksEnums.type.KVASS));
+        typeComboModel.addElement(String.valueOf(DrinksEnums.Type.LEMONADE));
+        typeComboModel.addElement(String.valueOf(DrinksEnums.Type.KVASS));
         typeCombo.setModel(typeComboModel);
         DefaultComboBoxModel<String> tasteComboModel = new DefaultComboBoxModel<>();
-        tasteComboModel.addElement(String.valueOf(DrinksEnums.taste.LINGONBERRY));
-        tasteComboModel.addElement(String.valueOf(DrinksEnums.taste.TANGERINE));
-        tasteComboModel.addElement(String.valueOf(DrinksEnums.taste.AVOCADO));
+        tasteComboModel.addElement(String.valueOf(DrinksEnums.Taste.LINGONBERRY));
+        tasteComboModel.addElement(String.valueOf(DrinksEnums.Taste.TANGERINE));
+        tasteComboModel.addElement(String.valueOf(DrinksEnums.Taste.AVOCADO));
         tasteCombo.setModel(tasteComboModel);
         DefaultComboBoxModel<String> volumeComboModel = new DefaultComboBoxModel<>();
-        volumeComboModel.addElement(String.valueOf(DrinksEnums.volume.SMALL));
-        volumeComboModel.addElement(String.valueOf(DrinksEnums.volume.MEDIUM));
-        volumeComboModel.addElement(String.valueOf(DrinksEnums.volume.LITER));
-        volumeComboModel.addElement(String.valueOf(DrinksEnums.volume.ONEANDHALF));
-        volumeComboModel.addElement(String.valueOf(DrinksEnums.volume.TWOLITRES));
+        volumeComboModel.addElement(String.valueOf(DrinksEnums.Volume.SMALL));
+        volumeComboModel.addElement(String.valueOf(DrinksEnums.Volume.MEDIUM));
+        volumeComboModel.addElement(String.valueOf(DrinksEnums.Volume.LITER));
+        volumeComboModel.addElement(String.valueOf(DrinksEnums.Volume.ONEANDHALF));
+        volumeComboModel.addElement(String.valueOf(DrinksEnums.Volume.TWOLITRES));
         volumeCombo.setModel(volumeComboModel);
     }
 }

@@ -8,7 +8,6 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashMap;
 
 public class NewOrder extends JDialog {
 
@@ -23,6 +22,7 @@ public class NewOrder extends JDialog {
     private JTree tree1;
     private JTextField receiverTextField;
     private JTextField addressTextField;
+    private JButton addBurgerButton;
 
     public NewOrder(OrdersManager ordersManager) {
 
@@ -35,11 +35,6 @@ public class NewOrder extends JDialog {
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("Заказ");
         DefaultTreeModel model = new DefaultTreeModel(top);
         tree1.setModel(model);
-
-        createdOrder.setPizzas(new HashMap<>());
-        createdOrder.setDrinks(new HashMap<>());
-        createdOrder.setBeers(new HashMap<>());
-        createdOrder.setPotatoes(new HashMap<>());
 
         buttonOK.addActionListener(e -> onOK(ordersManager));
 
@@ -63,6 +58,8 @@ public class NewOrder extends JDialog {
         addBeerButton.addActionListener(e -> new AddBeer(this));
 
         addPotatoButton.addActionListener(e -> new AddPotato(this));
+
+        addBurgerButton.addActionListener(e -> new AddBurger(this));
     }
 
     private void onOK(OrdersManager ordersManager) {

@@ -1,20 +1,29 @@
 package enums;
 
+import java.util.Random;
+
 public class PotatoEnums {
 
-    public enum size{
+    public static final Random random = new Random();
+
+    public enum Size {
         SMALL("Малый"),
         MEDIUM("Стандартный"),
         LARGE("Большой");
 
         public final String value;
 
-        size(String value) {
+        Size(String value) {
             this.value = value;
+        }
+
+        public static Size randomSize() {
+            Size[] sizes = Size.values();
+            return sizes[random.nextInt(sizes.length)];
         }
     }
 
-    public enum sauce{
+    public enum Sauce {
         THOUSANDISLANDS("1000 островов"),
         MUSTARD("Горчичный"),
         BBQ("Барбекю"),
@@ -22,8 +31,13 @@ public class PotatoEnums {
 
         public final String value;
 
-        sauce(String value) {
+        Sauce(String value) {
             this.value = value;
+        }
+
+        public static Sauce randomSauce() {
+            Sauce[] sauces = Sauce.values();
+            return sauces[random.nextInt(sauces.length)];
         }
     }
 }

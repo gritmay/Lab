@@ -6,9 +6,15 @@ import java.util.Objects;
 
 public class Pizza {
 
-    private PizzaEnums.sort sort;
-    private PizzaEnums.diameter diameter;
-    private PizzaEnums.dough dough;
+    private PizzaEnums.Sort sort;
+    private PizzaEnums.Diameter diameter;
+    private PizzaEnums.Dough dough;
+
+    public Pizza() {
+        this.sort = PizzaEnums.Sort.randomSort();
+        this.diameter = PizzaEnums.Diameter.randomDiameter();
+        this.dough = PizzaEnums.Dough.randomDough();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -28,27 +34,27 @@ public class Pizza {
         return "Пицца " + sort.desc + ", " + diameter.value + " см, тесто: " + dough.type;
     }
 
-    public PizzaEnums.sort getSort() {
+    public PizzaEnums.Sort getSort() {
         return sort;
     }
 
-    public void setSort(PizzaEnums.sort sort) {
+    public void setSort(PizzaEnums.Sort sort) {
         this.sort = sort;
     }
 
-    public PizzaEnums.diameter getDiameter() {
+    public PizzaEnums.Diameter getDiameter() {
         return diameter;
     }
 
-    public void setDiameter(PizzaEnums.diameter diameter) {
+    public void setDiameter(PizzaEnums.Diameter diameter) {
         this.diameter = diameter;
     }
 
-    public PizzaEnums.dough getDough() {
+    public PizzaEnums.Dough getDough() {
         return dough;
     }
 
-    public void setDough(PizzaEnums.dough dough) {
+    public void setDough(PizzaEnums.Dough dough) {
         this.dough = dough;
     }
 }

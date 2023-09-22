@@ -27,6 +27,8 @@ public class AddPotato extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         fillComboBoxes();
+        SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(1, 1, 100, 1);
+        quantitySpinner.setModel(spinnerNumberModel);
 
         buttonOK.addActionListener(e -> onOK(creationOrder));
 
@@ -46,8 +48,8 @@ public class AddPotato extends JDialog {
 
     private void onOK(NewOrder creationOrder) {
         Potato potato = new Potato();
-        potato.setSize(PotatoEnums.size.valueOf((String) sizeCombo.getSelectedItem()));
-        potato.setSauce(PotatoEnums.sauce.valueOf((String) sauceCombo.getSelectedItem()));
+        potato.setSize(PotatoEnums.Size.valueOf((String) sizeCombo.getSelectedItem()));
+        potato.setSauce(PotatoEnums.Sauce.valueOf((String) sauceCombo.getSelectedItem()));
         if (creationOrder.createdOrder.getPotatoes().getOrDefault(potato, new Position(0, false)).getQuantity() != 0) {
             creationOrder.createdOrder.getPotatoes().put(potato, new Position
                     ((int) quantitySpinner.getValue() + creationOrder.createdOrder.getPotatoes().get(potato).getQuantity(), false));
@@ -63,15 +65,15 @@ public class AddPotato extends JDialog {
 
     public void fillComboBoxes() {
         DefaultComboBoxModel<String> sizeComboModel = new DefaultComboBoxModel<>();
-        sizeComboModel.addElement(String.valueOf(PotatoEnums.size.SMALL));
-        sizeComboModel.addElement(String.valueOf(PotatoEnums.size.MEDIUM));
-        sizeComboModel.addElement(String.valueOf(PotatoEnums.size.LARGE));
+        sizeComboModel.addElement(String.valueOf(PotatoEnums.Size.SMALL));
+        sizeComboModel.addElement(String.valueOf(PotatoEnums.Size.MEDIUM));
+        sizeComboModel.addElement(String.valueOf(PotatoEnums.Size.LARGE));
         sizeCombo.setModel(sizeComboModel);
         DefaultComboBoxModel<String> sauceComboModel = new DefaultComboBoxModel<>();
-        sauceComboModel.addElement(String.valueOf(PotatoEnums.sauce.THOUSANDISLANDS));
-        sauceComboModel.addElement(String.valueOf(PotatoEnums.sauce.MUSTARD));
-        sauceComboModel.addElement(String.valueOf(PotatoEnums.sauce.BBQ));
-        sauceComboModel.addElement(String.valueOf(PotatoEnums.sauce.SOURSPICY));
+        sauceComboModel.addElement(String.valueOf(PotatoEnums.Sauce.THOUSANDISLANDS));
+        sauceComboModel.addElement(String.valueOf(PotatoEnums.Sauce.MUSTARD));
+        sauceComboModel.addElement(String.valueOf(PotatoEnums.Sauce.BBQ));
+        sauceComboModel.addElement(String.valueOf(PotatoEnums.Sauce.SOURSPICY));
         sauceCombo.setModel(sauceComboModel);
     }
 }

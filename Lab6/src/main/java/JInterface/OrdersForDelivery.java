@@ -15,7 +15,7 @@ public class OrdersForDelivery extends JDialog {
     public OrdersForDelivery(ArrayList<Order> ordersForDelivery) {
 
         pack();
-        setSize(500, 400);
+        setSize(550, 400);
         setVisible(true);
         setContentPane(contentPane);
         setLocationRelativeTo(null);

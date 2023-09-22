@@ -1,15 +1,22 @@
 package products;
 
-import enums.BeerEnum;
+import enums.BeerEnums;
 
 import java.util.Objects;
 
 public class Beer {
 
-    private BeerEnum.brand brand;
-    private BeerEnum.sort sort;
-    private BeerEnum.container container;
-    private BeerEnum.volume volume;
+    private BeerEnums.Brand brand;
+    private BeerEnums.Sort sort;
+    private BeerEnums.Container container;
+    private BeerEnums.Volume volume;
+
+    public Beer() {
+        this.brand = BeerEnums.Brand.randomBrand();
+        this.sort = BeerEnums.Sort.randomSort();
+        this.container = BeerEnums.Container.randomContainer();
+        this.volume = BeerEnums.Volume.randomVolume();
+    }
 
     @Override
     public String toString() {
@@ -29,35 +36,35 @@ public class Beer {
         return Objects.hash(brand, sort, container, volume);
     }
 
-    public BeerEnum.brand getBrand() {
+    public BeerEnums.Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(BeerEnum.brand brand) {
+    public void setBrand(BeerEnums.Brand brand) {
         this.brand = brand;
     }
 
-    public BeerEnum.sort getSort() {
+    public BeerEnums.Sort getSort() {
         return sort;
     }
 
-    public void setSort(BeerEnum.sort sort) {
+    public void setSort(BeerEnums.Sort sort) {
         this.sort = sort;
     }
 
-    public BeerEnum.container getContainer() {
+    public BeerEnums.Container getContainer() {
         return container;
     }
 
-    public void setContainer(BeerEnum.container container) {
+    public void setContainer(BeerEnums.Container container) {
         this.container = container;
     }
 
-    public BeerEnum.volume getVolume() {
+    public BeerEnums.Volume getVolume() {
         return volume;
     }
 
-    public void setVolume(BeerEnum.volume volume) {
+    public void setVolume(BeerEnums.Volume volume) {
         this.volume = volume;
     }
 }
